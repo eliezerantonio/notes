@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "619694944410",
+    "project_id": "eliezer-antonio-9108b",
+    "storage_bucket": "eliezer-antonio-9108b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619694944410:android:82d129603b8ab815c1af23",
+        "android_client_info": {
+          "package_name": "com.example.notes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619694944410-p7af5sb2gm10ihejf09iifeuem6m0mn0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPQA9SaIz6lWd_b560IG7NEWtWVV3VHFI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "619694944410-p7af5sb2gm10ihejf09iifeuem6m0mn0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "619694944410-18uls0ndd7im8aoom2841hsq71k5fnpj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.portfolioEliezerAntonio"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619694944410:android:ac53643109b4e562c1af23",
+        "android_client_info": {
+          "package_name": "com.example.portfolio_eliezer_antonio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619694944410-p7af5sb2gm10ihejf09iifeuem6m0mn0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPQA9SaIz6lWd_b560IG7NEWtWVV3VHFI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "619694944410-p7af5sb2gm10ihejf09iifeuem6m0mn0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "619694944410-18uls0ndd7im8aoom2841hsq71k5fnpj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.portfolioEliezerAntonio"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
