@@ -1,25 +1,63 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/presentation/providers/notes/notes_repository_provider.dart';
 
 import '../../../domain/domain.dart';
 
-final notesProvider = StateNotifierProvider<NotesNotifier,
-    AsyncValue<(List<NoteEntity?>, String)>>((ref) {
-  final notesRepository = ref.watch(notesRepositoryProvider);
-  return NotesNotifier(notesRepository);
-});
+final notesProvider =
+    AsyncNotifierProvider<NotesNotifier, (List<NoteEntity>?, String)>(
+  NotesNotifier.new,
+);
 
-class NotesNotifier
-    extends StateNotifier<AsyncValue<(List<NoteEntity?>, String)>> {
-  final NotesRepositories notesRepositories;
+class NotesNotifier extends AsyncNotifier<(List<NoteEntity>?, String)> {
+  @override
+  FutureOr<(List<NoteEntity>?, String)> build() async {
+    return _loadNotes();
+  }
 
-  NotesNotifier(this.notesRepositories) : super(const AsyncValue.loading());
+  Future<(List<NoteEntity>?, String)> _loadNotes() async {
+    return ref.read(notesRepositoryProvider).getNotes();
+  }
 
-  Future<void> loadNotes() async {
-    try {
-      // state = await AsyncValue.guard(() => notesRepositories.getNotes());
-    } catch (e) {
-      // state = AsyncValue.;
-    }
+  Future<String> updateNote(NoteEntity newNote) async {
+    final oldState = state.asData?.value.$1 ?? [];
+
+    final index = oldState.indexWhere((element) => element.id == newNote.id);
+
+    final newState = <NoteEntity>[
+      ...oldState.sublist(0, index),
+      newNote,
+      ...oldState.sublist(index + 1),
+    ];
+    state = const AsyncLoading();
+
+    final response =
+        await ref.read(notesRepositoryProvider).updateNote(newNote);
+    state = AsyncData((newState, ""));
+    return response;
+  }
+
+  Future<String> saveNote(NoteEntity note) async {
+    final oldState = state.asData?.value.$1;
+
+    final newState = <NoteEntity>[note, ...oldState ?? []];
+    state = const AsyncLoading();
+
+    final response = await ref.read(notesRepositoryProvider).createNote(note);
+    state = AsyncData((newState, ""));
+    return response;
+  }
+
+  Future<String> deleteNote(String id) async {
+    final oldState = state.asData?.value.$1 ?? [];
+
+    oldState.removeWhere((element) => element.id == id);
+
+    state = const AsyncLoading();
+
+    final response = await ref.read(notesRepositoryProvider).deleteNoteById(id);
+    state = AsyncData((oldState, ""));
+    return response;
   }
 }

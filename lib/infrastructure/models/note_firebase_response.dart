@@ -1,29 +1,29 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NoteFirebaseResponse {
+  String? id;
   String title;
   String description;
-  int? color;
-  Timestamp createdAt;
+  Timestamp? createdAt;
 
   NoteFirebaseResponse({
     required this.title,
     required this.description,
-    this.color,
-    required this.createdAt,
+    this.createdAt,
+    this.id,
   });
 
   NoteFirebaseResponse copyWith({
     String? title,
     String? description,
-    int? color,
+    String? id,
     Timestamp? createdAt,
   }) {
     return NoteFirebaseResponse(
       title: title ?? this.title,
       description: description ?? this.description,
-      color: color ?? this.color,
       createdAt: createdAt ?? this.createdAt,
+      id: id ?? this.id,
     );
   }
 
@@ -31,7 +31,6 @@ class NoteFirebaseResponse {
     return <String, dynamic>{
       'title': title,
       'description': description,
-      'color': color,
       'createdAt': Timestamp.now(),
     };
   }
@@ -41,13 +40,13 @@ class NoteFirebaseResponse {
     return NoteFirebaseResponse(
       title: map['title'] as String,
       description: map['description'] as String,
-      color: map['color'] != null ? map['color'] as int : null,
       createdAt: map['createdAt'] as Timestamp,
+      id: doc.id,
     );
   }
 
   @override
   String toString() {
-    return 'NoteFirebaseResponse(title: $title, description: $description, color: $color, createdAt: $createdAt)';
+    return 'NoteFirebaseResponse(title: $title, description: $description, createdAt: $createdAt)';
   }
 }

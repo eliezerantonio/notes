@@ -10,7 +10,15 @@ class NoteMapper {
     return NoteEntity(
       title: noteFirebaseResponse.title,
       description: noteFirebaseResponse.description,
-      date: noteFirebaseResponse.createdAt.toDate(),
+      date: noteFirebaseResponse.createdAt!.toDate(),
+      id: noteFirebaseResponse.id!,
+    );
+  }
+
+  static NoteFirebaseResponse entityToMap(NoteEntity noteEntity) {
+    return NoteFirebaseResponse(
+      title: noteEntity.title!,
+      description: noteEntity.description!,
     );
   }
 }

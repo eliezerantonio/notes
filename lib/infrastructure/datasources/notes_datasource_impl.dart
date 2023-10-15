@@ -9,29 +9,43 @@ class NotesDatasourceImpl implements NotesDatadources {
   final String _collectionName = "notes";
 
   @override
-  Future<void> createNote(Map<String, dynamic> loteLike) async {
-    // await _firebaseFirestore
-    //     .collection(_collectionName)
-    //     .add(beneficiary.toMap());
-  }
-
-  @override
-  Future<NoteEntity> deleteNoteById(String id) {
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<(NoteEntity?, String)> getNoteById(String id) async {
+  Future<String> createNote(NoteEntity note) async {
     try {
-      final response =
-          await _firebaseFirestore.collection(_collectionName).doc(id).get();
-
-      return (
-        NoteMapper.noteFirebaseToEntity(response),
-        'Nota obtida com sucesso'
-      );
+      await _firebaseFirestore
+          .collection(_collectionName)
+          .add(NoteMapper.entityToMap(note).toMap());
+      return "Salvo com sucesso";
     } catch (e) {
-      return (null, getErrorString(e.toString()));
+      return "Erro ao salvar $e";
+    }
+  }
+
+  @override
+  Future<String> deleteNoteById(String id) async {
+    try {
+      await _firebaseFirestore.collection(_collectionName).doc(id).delete();
+      return "Elimiado com sucesso";
+    } catch (e) {
+      return "Erro ao elimiar $e";
+    }
+  }
+
+  @override
+  Future<List<NoteEntity>> search(String word) async {
+    try {
+      final response = await _firebaseFirestore
+          .collection(_collectionName)
+          // .orderBy('title')
+          // .orderBy('description')
+          .where("title", isLessThan: word)
+          // .startAt([8, word])
+          .get();
+
+      return response.docs
+          .map((e) => NoteMapper.noteFirebaseToEntity(e))
+          .toList();
+    } catch (e) {
+      throw Exception(getErrorString(e.toString()));
     }
   }
 
@@ -51,5 +65,15 @@ class NotesDatasourceImpl implements NotesDatadources {
   }
 
   @override
-  Future<void> updateNote(Map<String, dynamic> noteLike) async {}
+  Future<String> updateNote(NoteEntity noteLike) async {
+    try {
+      await _firebaseFirestore
+          .collection(_collectionName)
+          .doc(noteLike.id)
+          .update(NoteMapper.entityToMap(noteLike).toMap());
+      return "Atualizado com sucesso";
+    } catch (e) {
+      return "Erro ao atualizar $e";
+    }
+  }
 }

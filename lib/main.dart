@@ -1,9 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/firebase_options.dart';
 
 import './config/configs.dart';
+import 'presentation/providers/theme/providers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,15 +13,30 @@ void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
   @override
+  MyAppState createState() => MyAppState();
+}
+
+class MyAppState extends ConsumerState {
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    ref.read(themeProvider.notifier).getTheme();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final themeApp = ref.watch(themeProvider);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
+      theme: themeApp.themeData,
       title: 'Notes',
+      themeMode: themeApp.themeStatus ? ThemeMode.dark : ThemeMode.light,
     );
   }
 }

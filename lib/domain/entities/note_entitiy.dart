@@ -1,13 +1,13 @@
 class NoteEntity {
-  String title;
-  String description;
-  int? color;
-  DateTime? date;
+  late String? id;
+  late String? title;
+  late String? description;
+  late DateTime? date;
 
   NoteEntity({
-    required this.title,
-    required this.description,
+    this.title,
+    this.description,
     this.date,
-    this.color,
+    this.id,
   });
 }
