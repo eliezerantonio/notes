@@ -33,17 +33,14 @@ class NotesDatasourceImpl implements NotesDatadources {
   @override
   Future<List<NoteEntity>> search(String word) async {
     try {
-      final response = await _firebaseFirestore
-          .collection(_collectionName)
-          // .orderBy('title')
-          // .orderBy('description')
-          .where("title", isLessThan: word)
-          // .startAt([8, word])
-          .get();
+      List<NoteEntity> notes = [];
+      final response =  await _firebaseFirestore.collection(_collectionName).get();
 
-      return response.docs
-          .map((e) => NoteMapper.noteFirebaseToEntity(e))
-          .toList();
+      final list =  response.docs.map((e) => NoteMapper.noteFirebaseToEntity(e)).toList();
+
+      notes.addAll(list.where((element) =>    element.title!.toLowerCase().contains(word.toLowerCase())));
+
+      return notes;
     } catch (e) {
       throw Exception(getErrorString(e.toString()));
     }
@@ -52,8 +49,7 @@ class NotesDatasourceImpl implements NotesDatadources {
   @override
   Future<(List<NoteEntity>?, String)> getNotes() async {
     try {
-      final response =
-          await _firebaseFirestore.collection(_collectionName).get();
+      final response =  await _firebaseFirestore.collection(_collectionName).get();
 
       return (
         response.docs.map((e) => NoteMapper.noteFirebaseToEntity(e)).toList(),
