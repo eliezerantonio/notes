@@ -3,11 +3,11 @@ import '../entities/note_entitiy.dart';
 abstract class NotesDatadources {
   Future<(List<NoteEntity>?, String)> getNotes();
 
-  Future<(NoteEntity?, String)> getNoteById(String id);
+  Future<List<NoteEntity>?> search(String word);
 
-  Future<void> deleteNoteById(String id);
+  Future<String> deleteNoteById(String id);
 
-  Future<void> createNote(Map<String, dynamic> loteLike);
+  Future<String> createNote(NoteEntity note);
 
-  Future<void> updateNote(Map<String, dynamic> noteLike);
+  Future<String> updateNote(NoteEntity note);
 }
