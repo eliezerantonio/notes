@@ -29,25 +29,25 @@ class ThemeNotifier extends StateNotifier<ThemeState> {
   }
 
   Future<void> _setDarkTheme(bool value) async {
-    state = state.copyWith(themeData: darkTheme(), themeStatus: value);
+    state = state.copyWith(themeData: darkTheme(), darkTheme: value);
   }
 
   Future<void> _setLightTheme(bool value) async {
-    state = state.copyWith(themeData: lightTheme(), themeStatus: value);
+    state = state.copyWith(themeData: lightTheme(), darkTheme: value);
   }
 
   Future<void> getTheme() async {
     final theme = await keyValueStorageService.getValue('theme');
     switch (theme) {
       case false:
-        state = state.copyWith(themeData: lightTheme(), themeStatus: theme);
+        state = state.copyWith(themeData: lightTheme(), darkTheme: theme);
         break;
       case true:
-        state = state.copyWith(themeData: darkTheme(), themeStatus: theme);
+        state = state.copyWith(themeData: darkTheme(), darkTheme: theme);
         break;
 
       default:
-        state = state.copyWith(themeData: lightTheme(), themeStatus: theme);
+        state = state.copyWith(themeData: lightTheme(), darkTheme: theme);
     }
   }
 
@@ -59,20 +59,20 @@ class ThemeNotifier extends StateNotifier<ThemeState> {
 
 class ThemeState {
   final ThemeData? themeData;
-  final bool themeStatus;
+  final bool darkTheme;
 
   ThemeState({
     this.themeData,
-    this.themeStatus = false,
+    this.darkTheme = false,
   });
 
   ThemeState copyWith({
     ThemeData? themeData,
-    bool? themeStatus,
+    bool? darkTheme,
   }) {
     return ThemeState(
       themeData: themeData ?? this.themeData,
-      themeStatus: themeStatus ?? this.themeStatus,
+      darkTheme: darkTheme ?? this.darkTheme,
     );
   }
 }

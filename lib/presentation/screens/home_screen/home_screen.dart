@@ -21,7 +21,7 @@ class HomeScreen extends ConsumerWidget {
         centerTitle: false,
         actions: [
           Switch.adaptive(
-            value: themeApp.themeStatus,
+            value: themeApp.darkTheme,
             onChanged: (bool value) {
               ref.read(themeProvider.notifier).setTheme(value);
             },

@@ -36,7 +36,7 @@ class MyAppState extends ConsumerState {
       routerConfig: appRouter,
       theme: themeApp.themeData,
       title: 'Notes',
-      themeMode: themeApp.themeStatus ? ThemeMode.dark : ThemeMode.light,
+      themeMode: themeApp.darkTheme ? ThemeMode.dark : ThemeMode.light,
     );
   }
 }
