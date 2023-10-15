@@ -15,14 +15,14 @@ class NoteStaggeredGridView extends ConsumerWidget {
   final _randomColor = Random();
   final List<Color> _colors = [
     const Color.fromARGB(255, 6, 157, 141),
-    Colors.amber[200]!,
-    Colors.blue[200]!,
-    Colors.green[200]!,
-    Colors.grey[350]!,
+    Colors.amber,
+    Colors.blue,
+    Colors.green,
+    Colors.grey,
     const Color(0xff9585BA),
     const Color(0xffCBDB57),
     Colors.deepPurple[200]!,
-    Colors.red[200]!
+    Colors.red
   ];
   @override
   Widget build(BuildContext context, ref) {
