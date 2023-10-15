@@ -31,7 +31,7 @@ class NoteScreen extends ConsumerWidget {
       body: Form(
         key: form,
         child: Stack(
-          alignment: Alignment.center,
+          alignment: Alignment.topCenter,
           children: [
             Padding(
               padding: const EdgeInsets.all(18.0),
