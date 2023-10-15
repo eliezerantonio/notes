@@ -22,7 +22,9 @@ class NoteStaggeredGridView extends ConsumerWidget {
     const Color(0xff9585BA),
     const Color(0xffCBDB57),
     Colors.deepPurple[200]!,
-    Colors.red
+    Colors.red,
+    Colors.lime,
+    Colors.deepOrangeAccent
   ];
   @override
   Widget build(BuildContext context, ref) {

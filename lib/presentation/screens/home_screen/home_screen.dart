@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:notes/domain/domain.dart';
-import 'package:notes/presentation/providers/notes/notes_provider.dart';
-import 'package:notes/presentation/providers/notes/search_note_provider.dart';
 
+import '../../../domain/domain.dart';
+import '../../providers/notes/providers.dart';
 import '../../providers/theme/providers.dart';
 import '../search_screen/search_screen.dart';
 import 'components/components.dart';
@@ -15,6 +14,8 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeApp = ref.watch(themeProvider);
+    final colorDarkTheme =
+        themeApp.darkTheme ? const Color(0xff1c1b1f) : Colors.white;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Notes"),
@@ -22,6 +23,7 @@ class HomeScreen extends ConsumerWidget {
         actions: [
           Switch.adaptive(
             value: themeApp.darkTheme,
+            activeColor: Colors.green,
             onChanged: (bool value) {
               ref.read(themeProvider.notifier).setTheme(value);
             },
@@ -51,6 +53,7 @@ class HomeScreen extends ConsumerWidget {
       ),
       body: NoteStaggeredGridView(),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: colorDarkTheme,
         onPressed: () => context.push("/edit-note"),
         child: const Icon(Icons.add),
       ),

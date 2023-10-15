@@ -21,9 +21,11 @@ class NoteScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          if (_noteEntity.id != null) DeleteNote(noteEntity: _noteEntity),
-          20.width,
           SaveOrUpdate(form: form, noteEntity: _noteEntity),
+          if (_noteEntity.id != null) ...[
+            DeleteNote(noteEntity: _noteEntity),
+            ShareNote(noteEntity: _noteEntity)
+          ],
         ],
       ),
       body: Form(
@@ -74,9 +76,7 @@ class NoteScreen extends ConsumerWidget {
               ),
             ),
             if (noteProvier.isLoading)
-              const SizedBox(
-                width: 75,
-                height: 60,
+              const Center(
                 child: CircularProgressIndicator.adaptive(),
               )
           ],

@@ -49,6 +49,7 @@ class SearchDelegateScreen extends SearchDelegate<NoteEntity?> {
 
         return ListView.builder(
           itemCount: notes.length,
+          shrinkWrap: true,
           itemBuilder: (context, index) {
             final note = notes[index];
 

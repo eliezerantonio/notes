@@ -39,9 +39,9 @@ class NotesNotifier extends AsyncNotifier<(List<NoteEntity>?, String)> {
   }
 
   Future<String> saveNote(NoteEntity note) async {
-    final oldState = state.asData?.value.$1;
+    final oldState = state.asData?.value.$1 ?? [];
 
-    final newState = <NoteEntity>[note, ...oldState ?? []];
+    final newState = <NoteEntity>[note, ...oldState];
     state = const AsyncLoading();
 
     final response = await ref.read(notesRepositoryProvider).createNote(note);
