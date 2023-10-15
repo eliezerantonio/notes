@@ -5,8 +5,7 @@ import 'package:notes/presentation/providers/notes/notes_repository_provider.dar
 
 import '../../../domain/domain.dart';
 
-final notesProvider =
-    AsyncNotifierProvider<NotesNotifier, (List<NoteEntity>?, String)>(
+final notesProvider = AsyncNotifierProvider<NotesNotifier, (List<NoteEntity>?, String)>(
   NotesNotifier.new,
 );
 
@@ -32,8 +31,7 @@ class NotesNotifier extends AsyncNotifier<(List<NoteEntity>?, String)> {
     ];
     state = const AsyncLoading();
 
-    final response =
-        await ref.read(notesRepositoryProvider).updateNote(newNote);
+    final response =  await ref.read(notesRepositoryProvider).updateNote(newNote);
     state = AsyncData((newState, ""));
     return response;
   }
