@@ -1,6 +1,6 @@
 # Notes App
 
-### Technologies & Patterns
+### Libraries,  Patterns, Principles, Methodologies e Designs
 
 * Flutter
 * Firebase
@@ -8,9 +8,7 @@
 * Clean Architecture
 * GoRouter
 * Riverpod
-* Injection Dependency
-* Addapter   
+* Dependency Injection
+* Adapter
 * SOLID
-* 
-
-  
+*
