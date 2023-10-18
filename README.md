@@ -12,7 +12,6 @@
 * Keep It Simple, Silly (KISS)
 * Command Query Responsibility Segregation (CQRS)
 * Composition Over Inheritance
-* Small Commits
 
 > ## Design Patterns
 

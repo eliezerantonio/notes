@@ -24,7 +24,7 @@ class MyAppState extends ConsumerState {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     ref.read(themeProvider.notifier).getTheme();
   }
 

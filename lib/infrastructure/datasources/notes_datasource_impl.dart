@@ -5,28 +5,30 @@ import '../errors/errors.dart';
 import '../mappers/note_mapper.dart';
 
 class NotesDatasourceImpl implements NotesDatadources {
-  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firebaseFirestore;
   final String _collectionName = "notes";
 
+  NotesDatasourceImpl(this._firebaseFirestore);
+
   @override
-  Future<String> createNote(NoteEntity note) async {
+  Future<String> createNote(NoteEntity? note) async {
     try {
       await _firebaseFirestore
           .collection(_collectionName)
-          .add(NoteMapper.entityToMap(note).toMap());
+          .add(NoteMapper.entityToMap(note!).toMap());
       return "Salvo com sucesso";
     } catch (e) {
-      return "Erro ao salvar $e";
+      return "Erro ao salvar";
     }
   }
 
   @override
-  Future<String> deleteNoteById(String id) async {
+  Future<String> deleteNoteById(String? id) async {
     try {
       await _firebaseFirestore.collection(_collectionName).doc(id).delete();
       return "Elimiado com sucesso";
     } catch (e) {
-      return "Erro ao elimiar $e";
+      return "Erro ao eliminar";
     }
   }
 
@@ -34,11 +36,14 @@ class NotesDatasourceImpl implements NotesDatadources {
   Future<List<NoteEntity>> search(String word) async {
     try {
       List<NoteEntity> notes = [];
-      final response =  await _firebaseFirestore.collection(_collectionName).get();
+      final response =
+          await _firebaseFirestore.collection(_collectionName).get();
 
-      final list =  response.docs.map((e) => NoteMapper.noteFirebaseToEntity(e)).toList();
+      final list =
+          response.docs.map((e) => NoteMapper.noteFirebaseToEntity(e)).toList();
 
-      notes.addAll(list.where((element) =>    element.title!.toLowerCase().contains(word.toLowerCase())));
+      notes.addAll(list.where((element) =>
+          element.title!.toLowerCase().contains(word.toLowerCase())));
 
       return notes;
     } catch (e) {
@@ -49,7 +54,8 @@ class NotesDatasourceImpl implements NotesDatadources {
   @override
   Future<(List<NoteEntity>?, String)> getNotes() async {
     try {
-      final response =  await _firebaseFirestore.collection(_collectionName).get();
+      final response =
+          await _firebaseFirestore.collection(_collectionName).get();
 
       return (
         response.docs.map((e) => NoteMapper.noteFirebaseToEntity(e)).toList(),

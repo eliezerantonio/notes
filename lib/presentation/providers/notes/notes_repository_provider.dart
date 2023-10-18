@@ -1,10 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:notes/domain/domain.dart';
 import 'package:notes/infrastructure/datasources/notes_datasource_impl.dart';
 import 'package:notes/infrastructure/repositories/notes_repository_impl.dart';
 
 final notesRepositoryProvider = Provider<NotesRepositories>((ref) {
-  final notesRespository = NoteRepositoryImpl(NotesDatasourceImpl());
+  final notesRespository = NoteRepositoryImpl(NotesDatasourceImpl(FirebaseFirestore.instance));
 
   return notesRespository;
 });

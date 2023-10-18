@@ -22,12 +22,10 @@ class DeleteNote extends ConsumerWidget {
           onPressed: noteProvier.isLoading
               ? null
               : () {
-                  ref
-                      .read(notesProvider.notifier)
-                      .deleteNote(_noteEntity.id!)
-                      .then((message) {
+                  ref.read(notesProvider.notifier).deleteNote(_noteEntity.id!).then((message) {
+                     showMessage(message, context);
                     context.pop();
-                    showMessage(message, context);
+                   
                   });
                 },
           icon: const Icon(Icons.delete)),
