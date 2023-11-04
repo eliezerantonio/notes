@@ -38,9 +38,9 @@ class SaveOrUpdate extends ConsumerWidget {
                     .read(notesProvider.notifier)
                     .saveNote(noteEntity!)
                     .then((message) {
-                  form.currentState!.reset();
                   showMessage(message, context);
                 });
+                form.currentState!.reset();
               },
         icon: noteEntity?.id != null
             ? const Icon(Icons.edit_square)
